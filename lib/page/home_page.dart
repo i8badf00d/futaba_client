@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:futaba_client/entity/futaba_board.dart';
-import 'package:futaba_client/page/catalog_page.dart';
+import 'package:futaba_client/page/catalog/catalog_page.dart';
 import 'package:futaba_client/repository/board_repository.dart';
 import 'package:futaba_client/widget/board_list.dart';
 
@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
   void _presentCatalogPage(BuildContext context, FutabaBoard board) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (context) {
-        return CatalogPage(board: board);
+        return CatalogPage.withDependencies(board: board);
       }),
     );
   }
