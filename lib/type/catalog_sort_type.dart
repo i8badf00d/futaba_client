@@ -12,10 +12,10 @@ class CatalogSortType {
   static CatalogSortType createdDateAsc = CatalogSortType._(2);
 
   /// 多順
-  static CatalogSortType resCountDesc = CatalogSortType._(3);
+  static CatalogSortType replyCountDesc = CatalogSortType._(3);
 
   /// 少順
-  static CatalogSortType resCountAsc = CatalogSortType._(4);
+  static CatalogSortType replyCountAsc = CatalogSortType._(4);
 
   /// 勢順
   static CatalogSortType hot = CatalogSortType._(6);

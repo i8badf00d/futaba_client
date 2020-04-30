@@ -66,7 +66,7 @@ CatalogParserOutput parseCatalog(CatalogParserInput input) {
             id: int.parse(id),
             url: threadUrl,
             thumbnailUrl: thumbnailUrl,
-            count: int.tryParse(count),
+            replyCount: int.tryParse(count),
             body: body,
           );
         })

@@ -75,8 +75,8 @@ class CatalogPage extends StatelessWidget {
     _SortMenuItem(title: 'カタログ', sortType: CatalogSortType.none),
     _SortMenuItem(title: '新順', sortType: CatalogSortType.createdDateDesc),
     _SortMenuItem(title: '古順', sortType: CatalogSortType.createdDateAsc),
-    _SortMenuItem(title: '多順', sortType: CatalogSortType.resCountDesc),
-    _SortMenuItem(title: '少順', sortType: CatalogSortType.resCountAsc),
+    _SortMenuItem(title: '多順', sortType: CatalogSortType.replyCountDesc),
+    _SortMenuItem(title: '少順', sortType: CatalogSortType.replyCountAsc),
   ];
 
   Widget _buildBottomAppBar(BuildContext context) {

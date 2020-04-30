@@ -27,7 +27,7 @@ class ThreadGridCell extends StatelessWidget {
               padding: const EdgeInsets.all(2),
               color: Colors.black54,
               child: Text(
-                '${thread.count}',
+                '${thread.replyCount}',
                 style: const TextStyle(color: Colors.white),
               ),
             ),

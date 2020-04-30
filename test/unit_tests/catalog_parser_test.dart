@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:futaba_client/parser/catalog_parser.dart';
+import 'package:futaba_client/api/parser/catalog_parser.dart';
 import 'package:test/test.dart';
 
 import '../utils/test_path.dart';
@@ -17,7 +17,7 @@ void main() {
           Uri.https('example.com', '/b/res/10000001.htm'));
       expect(output.threads[0].thumbnailUrl,
           Uri.https('example.com', '/b/cat/10000001s.jpg'));
-      expect(output.threads[0].count, 11);
+      expect(output.threads[0].replyCount, 11);
       expect(output.threads[0].body, 'Body1');
       expect(output.error, isNull);
     });
@@ -36,7 +36,7 @@ void main() {
       expect(output.threads[0].url,
           Uri.https('example.com', '/b/res/12345678.htm'));
       expect(output.threads[0].thumbnailUrl, isNull);
-      expect(output.threads[0].count, isNull);
+      expect(output.threads[0].replyCount, isNull);
       expect(output.threads[0].body, isNull);
       expect(output.error, isNull);
     });
