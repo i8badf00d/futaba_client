@@ -13,8 +13,8 @@ jobs:
       with:
         flutter-version: '1.12.13+hotfix.9'
         channel: 'stable'
-#     - name: Run Flutter test
-#       run: flutter test
+    - name: Run Flutter test
+      run: flutter test
     - name: Build Release apk
       run: |
         echo storePassword=${{ secrets.STORE_PASSWORD }} >> android/key.properties
@@ -27,7 +27,7 @@ jobs:
       run: |
         curl \
          -H "Authorization: token ${{secrets.DEPLOYGATE_TOKEN}}" \
-         -F "file=@build/app/outputs/apk/debug/app-debug.apk" \
+         -F "file=@build/app/outputs/apk/release/app-release.apk" \
          -F "message=`git rev-parse --short $GITHUB_SHA`" \
          -F "distribution_name=master" \
          "https://deploygate.com/api/users/${{secrets.DEPLOYGATE_USER}}/apps"
