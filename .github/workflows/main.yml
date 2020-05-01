@@ -13,15 +13,15 @@ jobs:
       with:
         flutter-version: '1.12.13+hotfix.9'
         channel: 'stable'
-    - name: Run Flutter test
-      run: flutter test
+#     - name: Run Flutter test
+#       run: flutter test
     - name: Build Release apk
       run: |
         echo storePassword=${{ secrets.STORE_PASSWORD }} >> android/key.properties
         echo keyPassword=${{ secrets.KEY_PASSWORD }} >> android/key.properties
         echo keyAlias=${{ secrets.KEY_ALIAS }} >> android/key.properties
         echo storeFile=../key.jks >> android/key.properties
-        echo "${{ secrets.KEY_JKS }}" > android/key.jks
+        echo "${{ secrets.KEY_JKS }}" | openssl base64 -d > android/key.jks
         flutter build apk --release
     - name: Distribute apk
       run: |
