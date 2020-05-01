@@ -1,4 +1,4 @@
-import 'package:futaba_client/entity/futaba_thread.dart';
+import 'package:futaba_client/entity/thread.dart';
 import 'package:html/dom.dart';
 
 class CatalogParserInput {
@@ -9,7 +9,7 @@ class CatalogParserInput {
 
 class CatalogParserOutput {
   CatalogParserOutput(this.threads, this.error);
-  final List<FutabaThread> threads;
+  final List<Thread> threads;
   final CatalogParserError error;
 }
 
@@ -25,7 +25,7 @@ CatalogParserOutput parseCatalog(CatalogParserInput input) {
       return CatalogParserOutput([], CatalogParserError());
     }
     final threads = tds
-        .map<FutabaThread>((td) {
+        .map<Thread>((td) {
           /*
             <td>
               <a href='res/687222066.htm' target='_blank'>
@@ -62,8 +62,8 @@ CatalogParserOutput parseCatalog(CatalogParserInput input) {
 
           final body = td.querySelector('small')?.text?.trim();
 
-          return FutabaThread(
-            id: int.parse(id),
+          return Thread(
+            id: id,
             url: threadUrl,
             thumbnailUrl: thumbnailUrl,
             replyCount: int.tryParse(count),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:futaba_client/entity/futaba_board.dart';
-import 'package:futaba_client/entity/futaba_thread.dart';
+import 'package:futaba_client/entity/board.dart';
+import 'package:futaba_client/entity/thread.dart';
 import 'package:futaba_client/repository/thread_repository.dart';
 import 'package:futaba_client/type/catalog_sort_type.dart';
 
 class CatalogPageModel with ChangeNotifier {
   CatalogPageModel(this.board);
-  final FutabaBoard board;
+  final Board board;
   CatalogSortType sortType;
-  List<FutabaThread> threads = [];
+  List<Thread> threads = [];
 
   ScrollController scrollController = ScrollController();
 

@@ -1,17 +1,17 @@
-import 'package:futaba_client/entity/futaba_board.dart';
+import 'package:futaba_client/entity/board.dart';
 
 class BoardRepository {
-  Future<List<FutabaBoard>> fetchBoards() async {
+  Future<List<Board>> fetchBoards() async {
     return [
-      FutabaBoard(
+      Board(
         name: '二次元裏may',
         baseUrl: Uri.https('may.2chan.net', '/b/'),
       ),
-      FutabaBoard(
+      Board(
         name: '二次元裏img',
         baseUrl: Uri.https('img.2chan.net', '/b/'),
       ),
-      FutabaBoard(
+      Board(
         name: '二次元裏jun',
         baseUrl: Uri.https('jun.2chan.net', '/b/'),
       ),

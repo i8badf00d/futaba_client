@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:futaba_client/entity/futaba_board.dart';
+import 'package:futaba_client/entity/board.dart';
 
-typedef BoardListTapCallback = void Function(FutabaBoard board);
+typedef BoardListTapCallback = void Function(Board board);
 
 class BoardList extends StatelessWidget {
   const BoardList({Key key, this.boards, this.onTap}) : super(key: key);
 
-  final List<FutabaBoard> boards;
+  final List<Board> boards;
   final BoardListTapCallback onTap;
 
   @override

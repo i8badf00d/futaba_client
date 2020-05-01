@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:futaba_client/entity/futaba_board.dart';
+import 'package:futaba_client/entity/board.dart';
 import 'package:futaba_client/page/catalog/catalog_page.dart';
 import 'package:futaba_client/repository/board_repository.dart';
 import 'package:futaba_client/widget/board_list.dart';
@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: FutureBuilder<List<FutabaBoard>>(
+      body: FutureBuilder<List<Board>>(
         future: BoardRepository().fetchBoards(),
         builder: (context, snapshot) {
           return snapshot.hasData
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _presentCatalogPage(BuildContext context, FutabaBoard board) {
+  void _presentCatalogPage(BuildContext context, Board board) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (context) {
         return CatalogPage.withDependencies(board: board);

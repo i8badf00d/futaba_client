@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:futaba_client/entity/futaba_thread.dart';
+import 'package:futaba_client/entity/thread.dart';
 
 class ThreadGridCell extends StatelessWidget {
   const ThreadGridCell({Key key, this.thread, this.onTap}) : super(key: key);
 
-  final FutabaThread thread;
+  final Thread thread;
   final GestureTapCallback onTap;
 
   @override

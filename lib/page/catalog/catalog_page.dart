@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:futaba_client/entity/futaba_board.dart';
-import 'package:futaba_client/entity/futaba_thread.dart';
+import 'package:futaba_client/entity/board.dart';
+import 'package:futaba_client/entity/thread.dart';
 import 'package:futaba_client/page/catalog/catalog_page_model.dart';
-import 'package:futaba_client/page/thread_page.dart';
+import 'package:futaba_client/page/thread_detail/thread_detail_page.dart';
 import 'package:futaba_client/store/catalog_sort_type_store.dart';
 import 'package:futaba_client/type/catalog_sort_type.dart';
 import 'package:futaba_client/widget/thread_grid_cell.dart';
@@ -17,7 +17,7 @@ class _SortMenuItem {
 class CatalogPage extends StatelessWidget {
   const CatalogPage._({Key key}) : super(key: key);
 
-  static Widget withDependencies({Key key, FutabaBoard board}) {
+  static Widget withDependencies({Key key, Board board}) {
     return ChangeNotifierProvider<CatalogPageModel>(
       create: (_) => CatalogPageModel(board),
       child: CatalogPage._(key: key),
@@ -53,8 +53,10 @@ class CatalogPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ThreadGridCell(
                   thread: pageModel.threads[index],
-                  onTap: () =>
-                      _presentThreadPage(context, pageModel.threads[index]),
+                  onTap: () => _presentThreadDetailPage(
+                    context,
+                    pageModel.threads[index],
+                  ),
                 );
               },
               controller: pageModel.scrollController,
@@ -63,10 +65,10 @@ class CatalogPage extends StatelessWidget {
     );
   }
 
-  void _presentThreadPage(BuildContext context, FutabaThread thread) {
+  void _presentThreadDetailPage(BuildContext context, Thread thread) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (context) {
-        return ThreadPage(thread: thread);
+        return ThreadDetailPage.withDependencies(thread: thread);
       }),
     );
   }

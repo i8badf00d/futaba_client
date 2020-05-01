@@ -12,7 +12,7 @@ void main() {
       final input = CatalogParserInput(Uri.https('example.com', '/b/'), body);
       final output = parseCatalog(input);
       expect(output.threads.length, 4);
-      expect(output.threads[0].id, 10000001);
+      expect(output.threads[0].id, '10000001');
       expect(output.threads[0].url,
           Uri.https('example.com', '/b/res/10000001.htm'));
       expect(output.threads[0].thumbnailUrl,
@@ -32,7 +32,7 @@ void main() {
       final input = CatalogParserInput(Uri.https('example.com', '/b/'), body);
       final output = parseCatalog(input);
       expect(output.threads.length, 1);
-      expect(output.threads[0].id, 12345678);
+      expect(output.threads[0].id, '12345678');
       expect(output.threads[0].url,
           Uri.https('example.com', '/b/res/12345678.htm'));
       expect(output.threads[0].thumbnailUrl, isNull);
