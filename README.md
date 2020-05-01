@@ -1,5 +1,8 @@
 # Futaba Client
 
-A Futaba Client with Flutter.
+ふたばちゃんねるクライアントアプリ。
 
-- Flutter 1.12.13+hotfix.8 (channel stable)
+## Development
+
+- Flutter
+  - 1.12.13+hotfix.9 (channel stable)
