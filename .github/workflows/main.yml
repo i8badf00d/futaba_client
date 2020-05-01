@@ -21,7 +21,7 @@ jobs:
         echo keyPassword=${{ secrets.KEY_PASSWORD }} >> android/key.properties
         echo keyAlias=${{ secrets.KEY_ALIAS }} >> android/key.properties
         echo storeFile=../key.jks >> android/key.properties
-        echo ${{ secrets.KEY_JKS }} > android/key.jks
+        echo "${{ secrets.KEY_JKS }}" > android/key.jks
         flutter build apk --release
     - name: Distribute apk
       run: |
