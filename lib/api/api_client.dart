@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:euc/jis.dart';
 import 'package:flutter/foundation.dart';
+import 'package:futaba_client/api/data/data.dart';
 import 'package:futaba_client/api/parser/catalog_parser.dart';
 import 'package:futaba_client/api/parser/thread_detail_parser.dart';
-import 'package:futaba_client/api/response/response.dart';
 import 'package:futaba_client/entity/board.dart';
 import 'package:futaba_client/entity/thread.dart';
 import 'package:futaba_client/type/catalog_sort_type.dart';

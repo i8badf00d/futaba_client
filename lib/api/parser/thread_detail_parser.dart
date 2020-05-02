@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:futaba_client/api/response/response.dart';
+import 'package:futaba_client/api/data/data.dart';
 import 'package:futaba_client/utils/safe_cast.dart';
 
 FutabaThreadDetail parseThreadDetail(String responseBody) {

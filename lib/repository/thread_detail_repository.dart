@@ -1,5 +1,5 @@
 import 'package:futaba_client/api/api_client.dart';
-import 'package:futaba_client/api/response/response.dart';
+import 'package:futaba_client/api/data/data.dart';
 import 'package:futaba_client/entity/comment.dart';
 import 'package:futaba_client/entity/thread.dart';
 import 'package:futaba_client/entity/thread_detail.dart';
