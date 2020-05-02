@@ -1,4 +1,4 @@
-import 'package:futaba_client/api/api_client.dart';
+import 'package:futaba_client/api/api.dart' as api;
 import 'package:futaba_client/entity/board.dart';
 import 'package:futaba_client/entity/thread.dart';
 import 'package:futaba_client/io/http.dart';
@@ -11,7 +11,7 @@ class ThreadRepository {
     CatalogSortType sortType,
   }) async {
     final httpClient = IOClient(getHttpClient());
-    final apiClient = ApiClient(httpClient);
+    final apiClient = api.Client(httpClient);
     return apiClient.fetchThreads(
       board,
       sortType: sortType,

@@ -5,18 +5,17 @@ import 'package:flutter/foundation.dart';
 import 'package:futaba_client/api/data/data.dart';
 import 'package:futaba_client/api/parser/catalog_parser.dart';
 import 'package:futaba_client/api/parser/thread_detail_parser.dart';
-import 'package:futaba_client/entity/board.dart';
-import 'package:futaba_client/entity/thread.dart';
+import 'package:futaba_client/entity/entity.dart' as entity;
 import 'package:futaba_client/type/catalog_sort_type.dart';
 import 'package:http/http.dart' as http;
 
-class ApiClient {
-  ApiClient(this.client);
+class Client {
+  Client(this.client);
   final http.Client client;
 
   /// カタログからスレッド一覧を取得します。
-  Future<List<Thread>> fetchThreads(
-    Board board, {
+  Future<List<entity.Thread>> fetchThreads(
+    entity.Board board, {
     CatalogSortType sortType,
     int numberOfThreads = 240,
     int bodyLength = 4,
@@ -41,7 +40,7 @@ class ApiClient {
   }
 
   /// スレッド主のコメントを取得します。
-  Future<FutabaComment> fetchThreadOwnerComment(Thread thread) async {
+  Future<Comment> fetchThreadOwnerComment(entity.Thread thread) async {
     final queryParameters = {
       'mode': 'json',
       'start': '${thread.id}',
@@ -56,7 +55,7 @@ class ApiClient {
   }
 
   /// スレッド詳細を取得します。
-  Future<FutabaThreadDetail> fetchThreadDetail(Thread thread) async {
+  Future<ThreadDetail> fetchThreadDetail(entity.Thread thread) async {
     final queryParameters = {
       'mode': 'json',
       'res': '${thread.id}',
@@ -70,8 +69,8 @@ class ApiClient {
   }
 
   /// スレッド詳細および返信を取得します。
-  Future<FutabaThreadDetailAndReplies> fetchThreadDetailAndReplies(
-    Thread thread, {
+  Future<ThreadDetailAndReplies> fetchThreadDetailAndReplies(
+    entity.Thread thread, {
     String start,
   }) async {
     final queryParameters = {

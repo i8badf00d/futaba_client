@@ -1,5 +1,5 @@
-class FutabaComment {
-  FutabaComment({
+class Comment {
+  Comment({
     this.id,
     this.username,
     this.email,
@@ -16,8 +16,8 @@ class FutabaComment {
   final Uri thumbnailUrl;
 }
 
-class FutabaThreadDetail {
-  FutabaThreadDetail({
+class ThreadDetail {
+  ThreadDetail({
     this.isExpired,
     this.expirationDate,
     this.likeCountInfo,
@@ -28,8 +28,8 @@ class FutabaThreadDetail {
   final Map<String, int> likeCountInfo;
 }
 
-class FutabaThreadDetailAndReplies extends FutabaThreadDetail {
-  FutabaThreadDetailAndReplies({
+class ThreadDetailAndReplies extends ThreadDetail {
+  ThreadDetailAndReplies({
     bool isExpired,
     DateTime expirationDate,
     Map<String, int> likeCountInfo,
@@ -41,5 +41,5 @@ class FutabaThreadDetailAndReplies extends FutabaThreadDetail {
           likeCountInfo: likeCountInfo,
         );
 
-  final List<FutabaComment> replies;
+  final List<Comment> replies;
 }

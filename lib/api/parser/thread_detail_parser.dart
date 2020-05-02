@@ -3,20 +3,20 @@ import 'dart:convert';
 import 'package:futaba_client/api/data/data.dart';
 import 'package:futaba_client/utils/safe_cast.dart';
 
-FutabaThreadDetail parseThreadDetail(String responseBody) {
+ThreadDetail parseThreadDetail(String responseBody) {
   final json = _jsonDecode(responseBody);
 
-  return FutabaThreadDetail(
+  return ThreadDetail(
     isExpired: _parseIsExpired(json),
     expirationDate: _parseExpirationDate(json),
     likeCountInfo: _parseLikeCountInfo(json),
   );
 }
 
-FutabaThreadDetailAndReplies parseThreadDetailAndReplies(String responseBody) {
+ThreadDetailAndReplies parseThreadDetailAndReplies(String responseBody) {
   final json = _jsonDecode(responseBody);
 
-  return FutabaThreadDetailAndReplies(
+  return ThreadDetailAndReplies(
     isExpired: _parseIsExpired(json),
     expirationDate: _parseExpirationDate(json),
     likeCountInfo: _parseLikeCountInfo(json),
@@ -24,7 +24,7 @@ FutabaThreadDetailAndReplies parseThreadDetailAndReplies(String responseBody) {
   );
 }
 
-List<FutabaComment> parseComments(String responseBody) {
+List<Comment> parseComments(String responseBody) {
   final json = _jsonDecode(responseBody);
   return _parseComments(json);
 }
@@ -75,7 +75,7 @@ Map<String, int> _parseLikeCountInfo(Map<String, dynamic> json) {
 }
 
 /// `.res[]` をパースします。
-List<FutabaComment> _parseComments(Map<String, dynamic> json) {
+List<Comment> _parseComments(Map<String, dynamic> json) {
   final info = safeCast<Map<String, dynamic>>(json['res']);
   if (info == null) {
     print('[parseComments] failed to cast: ${json['res']}');
@@ -84,8 +84,8 @@ List<FutabaComment> _parseComments(Map<String, dynamic> json) {
   return info.entries.map(_parseComment).toList();
 }
 
-FutabaComment _parseComment(MapEntry<String, dynamic> entry) {
-  return FutabaComment(
+Comment _parseComment(MapEntry<String, dynamic> entry) {
+  return Comment(
     id: entry.key,
     username: entry.value['name'] as String,
     email: entry.value['email'] as String,
