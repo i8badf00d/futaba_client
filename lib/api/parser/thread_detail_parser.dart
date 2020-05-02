@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:futaba_client/api/response/response.dart';
-import 'package:futaba_client/utils/string_extensions.dart';
+import 'package:futaba_client/utils/safe_cast.dart';
 
 FutabaThreadDetail parseThreadDetail(String responseBody) {
   final json = _jsonDecode(responseBody);
@@ -30,19 +30,6 @@ List<FutabaComment> parseComments(String responseBody) {
 }
 
 // Util
-
-T safeCast<T>(dynamic object, {T onFailure}) {
-  try {
-    return object as T;
-  }
-  // ignore: avoid_catching_errors
-  on CastError catch (e) {
-    print('CastError: $e');
-  }
-  // ignore: avoid_catches_without_on_clauses
-  catch (_) {}
-  return onFailure;
-}
 
 int intValue(dynamic object, {int defaultValue = 0}) {
   if (object is int) {
