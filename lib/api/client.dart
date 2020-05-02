@@ -10,8 +10,8 @@ import 'package:futaba_client/type/catalog_sort_type.dart';
 import 'package:http/http.dart' as http;
 
 class Client {
-  Client(this.client);
-  final http.Client client;
+  Client(this.httpClient);
+  final http.Client httpClient;
 
   /// カタログからスレッド一覧を取得します。
   Future<List<entity.Thread>> fetchThreads(
@@ -27,7 +27,7 @@ class Client {
     final catalogUrl = board.baseUrl
         .resolve('futaba.php')
         .replace(queryParameters: queryParameters);
-    final response = await client.get(
+    final response = await httpClient.get(
       catalogUrl,
       headers: {'cookie': 'cxyl=${numberOfThreads}x1x${bodyLength}x0x1'},
     );
@@ -49,7 +49,7 @@ class Client {
     final url = thread.url
         .resolve('../futaba.php')
         .replace(queryParameters: queryParameters);
-    final response = await client.get(url);
+    final response = await httpClient.get(url);
     final comments = parseComments(response.body);
     return comments.firstWhere((c) => c.id == thread.id, orElse: () => null);
   }
@@ -64,7 +64,7 @@ class Client {
     final url = thread.url
         .resolve('../futaba.php')
         .replace(queryParameters: queryParameters);
-    final response = await client.get(url);
+    final response = await httpClient.get(url);
     return parseThreadDetail(response.body);
   }
 
@@ -83,7 +83,7 @@ class Client {
     final url = thread.url
         .resolve('../futaba.php')
         .replace(queryParameters: queryParameters);
-    final response = await client.get(url);
+    final response = await httpClient.get(url);
     return parseThreadDetailAndReplies(response.body);
   }
 }
