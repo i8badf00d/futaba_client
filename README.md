@@ -10,4 +10,4 @@
 ## Distribution
 
 - DeployGate
-  - https://deploygate.com/distributions/d3096bb9f8375e7e57fed1c8b749d506f53a7918
+  - https://dply.me/poydjd
