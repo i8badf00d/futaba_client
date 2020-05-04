@@ -2,6 +2,8 @@ class Comment {
   Comment({
     this.id,
     this.username,
+    this.userId,
+    this.host,
     this.email,
     this.subject,
     this.text,
@@ -10,6 +12,8 @@ class Comment {
 
   final String id;
   final String username;
+  final String userId;
+  final String host;
   final String email;
   final String subject;
   final String text;
