@@ -10,30 +10,65 @@ class ThreadDetailRepository {
     final ownerComment = await apiClient.fetchThreadOwnerComment(thread);
     final detailAndReplies =
         await apiClient.fetchThreadDetailAndReplies(thread);
-    return _convertToThreadDetail(ownerComment, detailAndReplies);
+    return _convertToThreadDetailEntity(
+      ownerComment,
+      detailAndReplies,
+      thread.url,
+    );
   }
 
-  entity.ThreadDetail _convertToThreadDetail(
+  entity.ThreadDetail _convertToThreadDetailEntity(
     api.Comment ownerComment,
     api.ThreadDetailAndReplies detailAndReplies,
+    Uri baseUrl,
   ) {
     final likeCountInfo = detailAndReplies.likeCountInfo;
     return entity.ThreadDetail(
-      ownerComment: _convertToComment(ownerComment, likeCountInfo),
+      ownerComment: _convertToCommentEntity(
+        ownerComment,
+        likeCountInfo,
+        baseUrl,
+      ),
       replies: detailAndReplies.replies
-          .map((reply) => _convertToComment(reply, likeCountInfo))
+          .map((reply) => _convertToCommentEntity(
+                reply,
+                likeCountInfo,
+                baseUrl,
+              ))
           .toList(),
     );
   }
 
-  entity.Comment _convertToComment(
+  entity.Comment _convertToCommentEntity(
     api.Comment comment,
     Map<String, int> likeCountInfo,
+    Uri baseUrl,
   ) {
+    if (comment == null) {
+      return null;
+    }
     return entity.Comment(
       id: comment.id,
-      text: comment.text,
+      text: comment.text ?? '',
+      file: _convertToFileEntity(comment.file, baseUrl),
       likeCount: likeCountInfo[comment.id] ?? 0,
+    );
+  }
+
+  entity.File _convertToFileEntity(
+    api.File file,
+    Uri baseUrl,
+  ) {
+    if (file == null) {
+      return null;
+    }
+    return entity.File(
+      size: file.size,
+      url: baseUrl.resolve(file.path),
+      extension: file.extension,
+      thumbnailUrl: baseUrl.resolve(file.thumbnailPath),
+      width: file.width,
+      height: file.height,
     );
   }
 }
