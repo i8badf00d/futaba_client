@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:futaba_client/api/data/data.dart';
 import 'package:futaba_client/utils/safe_cast.dart';
+import 'package:html/dom.dart' as dom;
+import 'package:html/dom_parsing.dart';
 
 ThreadDetail parseThreadDetail(String responseBody) {
   final json = _jsonDecode(responseBody);
@@ -85,11 +87,36 @@ List<Comment> _parseComments(Map<String, dynamic> json) {
 }
 
 Comment _parseComment(MapEntry<String, dynamic> entry) {
+  final text = entry.value['com'] as String;
+  final node = dom.Element.html('<div>$text</div>');
+
   return Comment(
     id: entry.key,
     username: entry.value['name'] as String,
     email: entry.value['email'] as String,
     subject: entry.value['sub'] as String,
-    text: entry.value['com'] as String,
+    text: _getText(node),
   );
+}
+
+String _getText(dom.Node node) => (TextVisitor()..visit(node)).toString();
+
+class TextVisitor extends TreeVisitor {
+  final _sb = StringBuffer();
+
+  @override
+  String toString() => _sb.toString();
+
+  @override
+  void visitText(dom.Text node) {
+    _sb.write(node.data);
+  }
+
+  @override
+  void visitElement(dom.Element node) {
+    if (node.localName == 'br') {
+      _sb.write('\n');
+    }
+    super.visitElement(node);
+  }
 }
