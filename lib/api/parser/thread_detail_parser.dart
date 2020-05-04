@@ -11,7 +11,7 @@ ThreadDetail parseThreadDetail(String responseBody) {
 
   return ThreadDetail(
     isExpired: _parseIsExpired(json),
-    expirationDateTimeUtc: _parseExpirationDateTimeUtc(json),
+    expiresDateTimeUtc: _parseExpiresDateTimeUtc(json),
     likeCountInfo: _parseLikeCountInfo(json),
   );
 }
@@ -21,7 +21,7 @@ ThreadDetailAndReplies parseThreadDetailAndReplies(String responseBody) {
 
   return ThreadDetailAndReplies(
     isExpired: _parseIsExpired(json),
-    expirationDateTimeUtc: _parseExpirationDateTimeUtc(json),
+    expiresDateTimeUtc: _parseExpiresDateTimeUtc(json),
     likeCountInfo: _parseLikeCountInfo(json),
     replies: _parseComments(json),
   );
@@ -59,7 +59,7 @@ bool _parseIsExpired(Map<String, dynamic> json) {
 }
 
 /// `.dielong` をパースします。
-DateTime _parseExpirationDateTimeUtc(Map<String, dynamic> json) {
+DateTime _parseExpiresDateTimeUtc(Map<String, dynamic> json) {
   final dielong = safeCast<String>(json['dielong']);
   if (dielong == null) {
     return null;
