@@ -4,13 +4,14 @@ import 'package:futaba_client/api/data/data.dart';
 import 'package:futaba_client/utils/safe_cast.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/dom_parsing.dart';
+import 'package:intl/intl.dart';
 
 ThreadDetail parseThreadDetail(String responseBody) {
   final json = _jsonDecode(responseBody);
 
   return ThreadDetail(
     isExpired: _parseIsExpired(json),
-    expirationDate: _parseExpirationDate(json),
+    expirationDateTimeUtc: _parseExpirationDateTimeUtc(json),
     likeCountInfo: _parseLikeCountInfo(json),
   );
 }
@@ -20,7 +21,7 @@ ThreadDetailAndReplies parseThreadDetailAndReplies(String responseBody) {
 
   return ThreadDetailAndReplies(
     isExpired: _parseIsExpired(json),
-    expirationDate: _parseExpirationDate(json),
+    expirationDateTimeUtc: _parseExpirationDateTimeUtc(json),
     likeCountInfo: _parseLikeCountInfo(json),
     replies: _parseComments(json),
   );
@@ -58,11 +59,13 @@ bool _parseIsExpired(Map<String, dynamic> json) {
 }
 
 /// `.dielong` をパースします。
-DateTime _parseExpirationDate(Map<String, dynamic> json) {
-  // TODO: expirationDate のパース
-  //       e.g. "Thu, 30 Apr 2020 19:09:39 GMT"
-  // final expirationDateString = safeCast<String>(json['dielong']);
-  return null;
+DateTime _parseExpirationDateTimeUtc(Map<String, dynamic> json) {
+  final dielong = safeCast<String>(json['dielong']);
+  if (dielong == null) {
+    return null;
+  }
+  // e.g. `"Mon, 04 May 2020 06:21:34 GMT"`
+  return DateFormat('EEE, d MMM yyyy HH:mm:ss').parseUtc(dielong);
 }
 
 /// `.sd` をパースします。

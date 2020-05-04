@@ -19,25 +19,25 @@ class Comment {
 class ThreadDetail {
   ThreadDetail({
     this.isExpired,
-    this.expirationDate,
+    this.expirationDateTimeUtc,
     this.likeCountInfo,
   }) : assert(likeCountInfo != null);
 
   final bool isExpired;
-  final DateTime expirationDate;
+  final DateTime expirationDateTimeUtc;
   final Map<String, int> likeCountInfo;
 }
 
 class ThreadDetailAndReplies extends ThreadDetail {
   ThreadDetailAndReplies({
     bool isExpired,
-    DateTime expirationDate,
+    DateTime expirationDateTimeUtc,
     Map<String, int> likeCountInfo,
     this.replies,
   })  : assert(replies != null),
         super(
           isExpired: isExpired,
-          expirationDate: expirationDate,
+          expirationDateTimeUtc: expirationDateTimeUtc,
           likeCountInfo: likeCountInfo,
         );
 

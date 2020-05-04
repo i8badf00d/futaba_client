@@ -11,6 +11,7 @@ dependencies:
   euc: 1.0.2+4
   html: 0.14.0+3
   http: 0.12.0+4
+  intl: 0.16.1
   provider: 4.0.4
 
 dev_dependencies:
