@@ -7,7 +7,7 @@ class Comment {
     this.email,
     this.subject,
     this.text,
-    this.thumbnailUrl,
+    this.file,
   }) : assert(id != null);
 
   final String id;
@@ -17,7 +17,25 @@ class Comment {
   final String email;
   final String subject;
   final String text;
-  final Uri thumbnailUrl;
+  final File file;
+}
+
+class File {
+  File({
+    this.size,
+    this.path,
+    this.extension,
+    this.thumbnailPath,
+    this.width,
+    this.height,
+  });
+
+  final int size;
+  final String path;
+  final String extension;
+  final String thumbnailPath;
+  final int width;
+  final int height;
 }
 
 class ThreadDetail {

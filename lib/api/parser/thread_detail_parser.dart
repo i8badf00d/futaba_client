@@ -101,6 +101,7 @@ Comment _parseComment(MapEntry<String, dynamic> entry) {
     email: entry.value['email'] as String,
     subject: entry.value['sub'] as String,
     text: _getText(node),
+    file: _parseFile(entry),
   );
 }
 
@@ -124,4 +125,19 @@ class TextVisitor extends TreeVisitor {
     }
     super.visitElement(node);
   }
+}
+
+File _parseFile(MapEntry<String, dynamic> entry) {
+  final fileSize = safeCast<int>(entry.value['fsize'], onFailure: 0);
+  if (fileSize > 0) {
+    return File(
+      size: fileSize,
+      path: entry.value['src'] as String,
+      extension: entry.value['ext'] as String,
+      thumbnailPath: entry.value['thumb'] as String,
+      width: entry.value['w'] as int,
+      height: entry.value['h'] as int,
+    );
+  }
+  return null;
 }
