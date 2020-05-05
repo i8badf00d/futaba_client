@@ -49,8 +49,14 @@ class ThreadDetailRepository {
     }
     return entity.Comment(
       id: comment.id,
+      username: comment.username,
+      userId: comment.userId,
+      host: comment.host,
+      email: comment.email,
+      subject: comment.subject,
       text: comment.text ?? '',
       file: _convertToFileEntity(comment.file, baseUrl),
+      postedAt: comment.postedAt,
       likeCount: likeCountInfo[comment.id] ?? 0,
     );
   }

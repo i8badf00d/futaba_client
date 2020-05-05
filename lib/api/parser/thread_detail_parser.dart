@@ -102,6 +102,7 @@ Comment _parseComment(MapEntry<String, dynamic> entry) {
     subject: entry.value['sub'] as String,
     text: _getText(node),
     file: _parseFile(entry),
+    postedAt: DateTime.fromMillisecondsSinceEpoch(intValue(entry.value['tim'])),
   );
 }
 

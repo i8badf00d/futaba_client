@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:futaba_client/entity/entity.dart';
+import 'package:intl/intl.dart';
 
 class ThreadDetailCommentCell extends StatelessWidget {
   const ThreadDetailCommentCell({Key key, this.comment, this.onLongPress})
@@ -25,10 +26,20 @@ class ThreadDetailCommentCell extends StatelessWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Text(comment.id),
+            Text(DateFormat('yyyy/MM/dd HH:mm:ss').format(comment.postedAt)),
             const SizedBox(width: 4),
-            Text('そうだねx${comment.likeCount}'),
-          ],
+            Text('No.${comment.id}'),
+            // そうだね
+            comment.likeCount > 0
+                ? Row(children: <Widget>[
+                    const SizedBox(width: 4),
+                    Text(
+                      'そうだねx${comment.likeCount}',
+                      style: const TextStyle(color: Colors.orangeAccent),
+                    ),
+                  ])
+                : null,
+          ].where((w) => w != null).toList(),
         ),
         const SizedBox(height: 8),
       ],

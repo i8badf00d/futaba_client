@@ -8,6 +8,7 @@ class Comment {
     this.subject,
     this.text,
     this.file,
+    this.postedAt,
   }) : assert(id != null);
 
   final String id;
@@ -18,6 +19,7 @@ class Comment {
   final String subject;
   final String text;
   final File file;
+  final DateTime postedAt;
 }
 
 class File {
