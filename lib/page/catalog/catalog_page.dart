@@ -3,6 +3,7 @@ import 'package:futaba_client/entity/board.dart';
 import 'package:futaba_client/entity/thread.dart';
 import 'package:futaba_client/page/catalog/catalog_page_model.dart';
 import 'package:futaba_client/page/thread_detail/thread_detail_page.dart';
+import 'package:futaba_client/store/catalog_cross_axis_count_store.dart';
 import 'package:futaba_client/store/catalog_sort_type_store.dart';
 import 'package:futaba_client/type/catalog_sort_type.dart';
 import 'package:futaba_client/widget/thread_grid_cell.dart';
@@ -17,9 +18,13 @@ class _SortMenuItem {
 class CatalogPage extends StatelessWidget {
   const CatalogPage._({Key key}) : super(key: key);
 
-  static Widget withDependencies({Key key, Board board}) {
+  static Widget withDependencies({
+    Key key,
+    Board board,
+    CatalogCrossAxisCountStore store,
+  }) {
     return ChangeNotifierProvider<CatalogPageModel>(
-      create: (_) => CatalogPageModel(board),
+      create: (_) => CatalogPageModel(board, store),
       child: CatalogPage._(key: key),
     );
   }
@@ -31,7 +36,12 @@ class CatalogPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(pageModel.board.name),
       ),
-      body: _buildBody(context),
+      body: GestureDetector(
+        onScaleStart: pageModel.onScaleStart,
+        onScaleUpdate: pageModel.onScaleUpdate,
+        onScaleEnd: pageModel.onScaleEnd,
+        child: _buildBody(context),
+      ),
       bottomNavigationBar: _buildBottomAppBar(context),
     );
   }
@@ -44,8 +54,8 @@ class CatalogPage extends StatelessWidget {
       child: pageModel.threads.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: pageModel.crossAxisCount,
                 crossAxisSpacing: 4,
                 mainAxisSpacing: 4,
               ),
