@@ -36,6 +36,8 @@ class ThreadDetailRepository {
                 baseUrl,
               ))
           .toList(),
+      isExpired: detailAndReplies.isExpired,
+      expiresDateTime: detailAndReplies.expiresDateTimeUtc.toLocal(),
     );
   }
 

@@ -4,7 +4,7 @@ import 'package:futaba_client/entity/thread.dart';
 import 'package:futaba_client/entity/thread_detail.dart';
 import 'package:futaba_client/repository/thread_detail_repository.dart';
 
-enum ThreadDetailRowType { ownerComment, reply, bottom }
+enum ThreadDetailRowType { ownerComment, reply, expiresInfo }
 
 class ThreadDetailRow {
   ThreadDetailRow(
@@ -12,7 +12,7 @@ class ThreadDetailRow {
     this.comment,
   });
   final ThreadDetailRowType type;
-  final Comment comment;
+  final Comment comment; // for ownerComment and reply
 }
 
 class ThreadDetailPageModel with ChangeNotifier {
@@ -21,6 +21,7 @@ class ThreadDetailPageModel with ChangeNotifier {
   }
   final Thread thread;
   List<ThreadDetailRow> rows = [];
+  DateTime expiresDateTime;
 
   String get title => thread.body;
   ScrollController scrollController = ScrollController();
@@ -31,6 +32,7 @@ class ThreadDetailPageModel with ChangeNotifier {
       return;
     }
     rows = _convert(detail);
+    expiresDateTime = detail.expiresDateTime;
     notifyListeners();
   }
 
@@ -44,6 +46,6 @@ class ThreadDetailPageModel with ChangeNotifier {
             ThreadDetailRowType.reply,
             comment: comment,
           )))
-      ..add(ThreadDetailRow(ThreadDetailRowType.bottom));
+      ..add(ThreadDetailRow(ThreadDetailRowType.expiresInfo));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:futaba_client/entity/thread.dart';
 import 'package:futaba_client/page/thread_detail/thread_detail_comment_cell.dart';
+import 'package:futaba_client/page/thread_detail/thread_detail_expires_info_cell.dart';
 import 'package:futaba_client/page/thread_detail/thread_detail_page_model.dart';
 import 'package:provider/provider.dart';
 
@@ -40,8 +41,10 @@ class ThreadDetailPage extends StatelessWidget {
                       return ThreadDetailCommentCell(comment: row.comment);
                     case ThreadDetailRowType.reply:
                       return ThreadDetailCommentCell(comment: row.comment);
-                    case ThreadDetailRowType.bottom:
-                      break;
+                    case ThreadDetailRowType.expiresInfo:
+                      return ThreadDetailExpiresInfoCell(
+                        expiresDateTime: pageModel.expiresDateTime,
+                      );
                   }
                   return const Placeholder();
                 },
