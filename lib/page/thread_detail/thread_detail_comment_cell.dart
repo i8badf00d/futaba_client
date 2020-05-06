@@ -30,16 +30,14 @@ class ThreadDetailCommentCell extends StatelessWidget {
             const SizedBox(width: 4),
             Text('No.${comment.id}'),
             // そうだね
-            comment.likeCount > 0
-                ? Row(children: <Widget>[
-                    const SizedBox(width: 4),
-                    Text(
-                      'そうだねx${comment.likeCount}',
-                      style: const TextStyle(color: Colors.orangeAccent),
-                    ),
-                  ])
-                : null,
-          ].where((w) => w != null).toList(),
+            if (comment.likeCount > 0) ...[
+              const SizedBox(width: 4),
+              Text(
+                'そうだねx${comment.likeCount}',
+                style: const TextStyle(color: Colors.orangeAccent),
+              ),
+            ]
+          ],
         ),
         const SizedBox(height: 8),
       ],
