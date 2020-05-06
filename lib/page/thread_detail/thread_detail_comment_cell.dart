@@ -15,9 +15,9 @@ class ThreadDetailCommentCell extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _buildTitle(context),
-        _buildThumbnail(context),
+        if (comment.file != null) _buildThumbnail(context, comment.file),
         _buildText(context),
-      ].where((w) => w != null).toList(),
+      ],
     );
   }
 
@@ -44,11 +44,7 @@ class ThreadDetailCommentCell extends StatelessWidget {
     );
   }
 
-  Widget _buildThumbnail(BuildContext context) {
-    final file = comment.file;
-    if (file == null) {
-      return null;
-    }
+  Widget _buildThumbnail(BuildContext context, File file) {
     final filename = file.url.lastPathComponent;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
