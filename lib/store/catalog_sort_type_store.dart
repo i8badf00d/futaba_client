@@ -1,17 +1,15 @@
-import 'package:futaba_client/store/preferences_key.dart';
+import 'package:futaba_client/store/store.dart';
 import 'package:futaba_client/type/catalog_sort_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CatalogSortTypeStore {
-  final _key = PreferencesKey.catalogSortType;
-
+class CatalogSortTypeStore extends Store {
   Future<CatalogSortType> load() async {
     final prefs = await SharedPreferences.getInstance();
-    return CatalogSortType.sortTypeForValue(prefs.getInt(_key));
+    return CatalogSortType.sortTypeForValue(prefs.getInt(key));
   }
 
   Future<void> save(CatalogSortType sortType) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(_key, sortType.value);
+    await prefs.setInt(key, sortType.value);
   }
 }
