@@ -1,6 +1,8 @@
+import 'package:meta/meta.dart';
+
 class Comment {
   Comment({
-    this.id,
+    @required this.id,
     this.username,
     this.userId,
     this.host,
@@ -9,7 +11,7 @@ class Comment {
     this.text,
     this.file,
     this.postedAt,
-  }) : assert(id != null);
+  });
 
   final String id;
   final String username;
@@ -44,8 +46,8 @@ class ThreadDetail {
   ThreadDetail({
     this.isExpired,
     this.expiresDateTimeUtc,
-    this.likeCountInfo,
-  }) : assert(likeCountInfo != null);
+    @required this.likeCountInfo,
+  });
 
   final bool isExpired;
   final DateTime expiresDateTimeUtc;
@@ -57,9 +59,8 @@ class ThreadDetailAndReplies extends ThreadDetail {
     bool isExpired,
     DateTime expiresDateTimeUtc,
     Map<String, int> likeCountInfo,
-    this.replies,
-  })  : assert(replies != null),
-        super(
+    @required this.replies,
+  }) : super(
           isExpired: isExpired,
           expiresDateTimeUtc: expiresDateTimeUtc,
           likeCountInfo: likeCountInfo,
