@@ -9,14 +9,19 @@ dependencies:
   flutter:
     sdk: flutter
   euc: 1.0.2+4
+  flutter_state_notifier: 0.4.2
+  freezed_annotation: 0.7.1
   html: 0.14.0+3
   http: 0.12.0+4
   intl: 0.16.1
   provider: 4.0.4
+  shared_preferences: 0.5.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: 1.9.0
+  freezed: 0.10.7
   pedantic_mono: 1.8.0
   test:
 

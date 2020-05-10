@@ -3,9 +3,7 @@ import 'package:futaba_client/entity/board.dart';
 import 'package:futaba_client/page/catalog/catalog_page.dart';
 import 'package:futaba_client/page/settings/settings_page.dart';
 import 'package:futaba_client/repository/board_repository.dart';
-import 'package:futaba_client/store/catalog_cross_axis_count_store.dart';
 import 'package:futaba_client/widget/board_list.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key, this.title}) : super(key: key);
@@ -51,8 +49,7 @@ class HomePage extends StatelessWidget {
   void _presentCatalogPage(BuildContext context, Board board) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (context) {
-        final store = Provider.of<CatalogCrossAxisCountStore>(context);
-        return CatalogPage.withDependencies(board: board, store: store);
+        return CatalogPage.withDependencies(board: board);
       }),
     );
   }

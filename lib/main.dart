@@ -2,8 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:futaba_client/page/home/home_page.dart';
-import 'package:futaba_client/store/catalog_cross_axis_count_store.dart';
-import 'package:futaba_client/store/catalog_sort_type_store.dart';
+import 'package:futaba_client/store/store.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -15,12 +14,8 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<CatalogCrossAxisCountStore>(
-          create: (_) => CatalogCrossAxisCountStore(),
-        ),
-        ChangeNotifierProvider<CatalogSortTypeStore>(
-          create: (_) => CatalogSortTypeStore(),
-        ),
+        Provider(create: (_) => CatalogColumnCountStore()),
+        Provider(create: (_) => CatalogSortTypeStore()),
       ],
       child: MyApp(),
     ),

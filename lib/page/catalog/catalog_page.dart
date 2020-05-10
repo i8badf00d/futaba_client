@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:futaba_client/entity/board.dart';
 import 'package:futaba_client/entity/thread.dart';
-import 'package:futaba_client/page/catalog/catalog_page_model.dart';
+import 'package:futaba_client/page/catalog/catalog_controller.dart';
+import 'package:futaba_client/page/catalog/catalog_state.dart';
 import 'package:futaba_client/page/thread_detail/thread_detail_page.dart';
-import 'package:futaba_client/store/catalog_cross_axis_count_store.dart';
-import 'package:futaba_client/store/catalog_sort_type_store.dart';
 import 'package:futaba_client/type/catalog_sort_type.dart';
 import 'package:futaba_client/widget/thread_grid_cell.dart';
 import 'package:provider/provider.dart';
@@ -16,30 +16,28 @@ class _SortMenuItem {
 }
 
 class CatalogPage extends StatelessWidget {
-  const CatalogPage._({Key key}) : super(key: key);
+  CatalogPage._({Key key}) : super(key: key);
 
-  static Widget withDependencies({
-    Key key,
-    Board board,
-    CatalogCrossAxisCountStore store,
-  }) {
-    return ChangeNotifierProvider<CatalogPageModel>(
-      create: (_) => CatalogPageModel(board, store),
+  static Widget withDependencies({Key key, Board board}) {
+    return StateNotifierProvider<CatalogController, CatalogState>(
+      create: (_) => CatalogController(board),
       child: CatalogPage._(key: key),
     );
   }
 
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    final pageModel = Provider.of<CatalogPageModel>(context, listen: false);
+    final controller = Provider.of<CatalogController>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text(pageModel.board.name),
+        title: Text(controller.board.name),
       ),
       body: GestureDetector(
-        onScaleStart: pageModel.onScaleStart,
-        onScaleUpdate: pageModel.onScaleUpdate,
-        onScaleEnd: pageModel.onScaleEnd,
+        onScaleStart: controller.onScaleStart,
+        onScaleUpdate: controller.onScaleUpdate,
+        onScaleEnd: controller.onScaleEnd,
         child: _buildBody(context),
       ),
       bottomNavigationBar: _buildBottomAppBar(context),
@@ -47,31 +45,30 @@ class CatalogPage extends StatelessWidget {
   }
 
   Widget _buildBody(BuildContext context) {
-    final pageModel = Provider.of<CatalogPageModel>(context);
-    final catalogSortTypeStore = Provider.of<CatalogSortTypeStore>(context);
-    pageModel.selectSortType(catalogSortTypeStore.value);
+    final controller = Provider.of<CatalogController>(context, listen: false);
+    final state = Provider.of<CatalogState>(context, listen: true);
     return RefreshIndicator(
-      child: pageModel.threads.isEmpty
+      child: state.threads.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: pageModel.crossAxisCount,
+                crossAxisCount: state.columnCount,
                 crossAxisSpacing: 4,
                 mainAxisSpacing: 4,
               ),
-              itemCount: pageModel.threads.length,
+              itemCount: state.threads.length,
               itemBuilder: (context, index) {
                 return ThreadGridCell(
-                  thread: pageModel.threads[index],
+                  thread: state.threads[index],
                   onTap: () => _presentThreadDetailPage(
                     context,
-                    pageModel.threads[index],
+                    state.threads[index],
                   ),
                 );
               },
-              controller: pageModel.scrollController,
+              controller: _scrollController,
             ),
-      onRefresh: pageModel.fetchThreads,
+      onRefresh: controller.fetchThreads,
     );
   }
 
@@ -92,8 +89,7 @@ class CatalogPage extends StatelessWidget {
   ];
 
   Widget _buildBottomAppBar(BuildContext context) {
-    final pageModel = Provider.of<CatalogPageModel>(context, listen: false);
-    final catalogSortTypeStore = Provider.of<CatalogSortTypeStore>(context);
+    final controller = Provider.of<CatalogController>(context, listen: false);
     return BottomAppBar(
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -109,8 +105,8 @@ class CatalogPage extends StatelessWidget {
           ),
           PopupMenuButton(
             onSelected: (_SortMenuItem selectedItem) {
-              pageModel.scrollController.jumpTo(0);
-              catalogSortTypeStore.selectSortType(selectedItem.sortType);
+              _scrollController.jumpTo(0);
+              controller.selectSortType(selectedItem.sortType);
             },
             icon: Icon(Icons.more_horiz),
             itemBuilder: (context) {

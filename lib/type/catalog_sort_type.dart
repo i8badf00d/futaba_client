@@ -22,4 +22,21 @@ class CatalogSortType {
 
   /// そ順
   static CatalogSortType likeCountDesc = CatalogSortType._(8);
+
+  static List<CatalogSortType> allTypes = [
+    CatalogSortType.none,
+    CatalogSortType.createdDateDesc,
+    CatalogSortType.createdDateAsc,
+    CatalogSortType.replyCountDesc,
+    CatalogSortType.replyCountAsc,
+    CatalogSortType.hot,
+    CatalogSortType.likeCountDesc,
+  ];
+
+  static CatalogSortType sortTypeForValue(int value) {
+    return allTypes.firstWhere(
+      (sortType) => sortType.value == value,
+      orElse: () => null,
+    );
+  }
 }
