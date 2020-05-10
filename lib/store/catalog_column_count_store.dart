@@ -1,7 +1,8 @@
+import 'package:futaba_client/store/preferences_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CatalogColumnCountStore {
-  final _key = 'catalog_column_count';
+  final _key = PreferencesKey.catalogColumnCount;
 
   Future<int> load() async {
     final prefs = await SharedPreferences.getInstance();

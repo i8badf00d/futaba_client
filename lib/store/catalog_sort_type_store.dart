@@ -1,8 +1,9 @@
+import 'package:futaba_client/store/preferences_key.dart';
 import 'package:futaba_client/type/catalog_sort_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CatalogSortTypeStore {
-  final _key = 'catalog_sort_type';
+  final _key = PreferencesKey.catalogSortType;
 
   Future<CatalogSortType> load() async {
     final prefs = await SharedPreferences.getInstance();
