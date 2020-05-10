@@ -5,15 +5,9 @@ import 'package:futaba_client/entity/thread.dart';
 import 'package:futaba_client/page/catalog/catalog_controller.dart';
 import 'package:futaba_client/page/catalog/catalog_state.dart';
 import 'package:futaba_client/page/thread_detail/thread_detail_page.dart';
-import 'package:futaba_client/type/catalog_sort_type.dart';
+import 'package:futaba_client/widget/sort_menu_item.dart';
 import 'package:futaba_client/widget/thread_grid_cell.dart';
 import 'package:provider/provider.dart';
-
-class _SortMenuItem {
-  _SortMenuItem({this.title, this.sortType});
-  final String title;
-  final CatalogSortType sortType;
-}
 
 class CatalogPage extends StatelessWidget {
   CatalogPage._({Key key}) : super(key: key);
@@ -80,14 +74,6 @@ class CatalogPage extends StatelessWidget {
     );
   }
 
-  static final List<_SortMenuItem> _sortMenuItems = [
-    _SortMenuItem(title: 'カタログ', sortType: CatalogSortType.none),
-    _SortMenuItem(title: '新順', sortType: CatalogSortType.createdDateDesc),
-    _SortMenuItem(title: '古順', sortType: CatalogSortType.createdDateAsc),
-    _SortMenuItem(title: '多順', sortType: CatalogSortType.replyCountDesc),
-    _SortMenuItem(title: '少順', sortType: CatalogSortType.replyCountAsc),
-  ];
-
   Widget _buildBottomAppBar(BuildContext context) {
     final controller = Provider.of<CatalogController>(context, listen: false);
     return BottomAppBar(
@@ -104,14 +90,14 @@ class CatalogPage extends StatelessWidget {
             onPressed: () {},
           ),
           PopupMenuButton(
-            onSelected: (_SortMenuItem selectedItem) {
+            onSelected: (SortMenuItem selectedItem) {
               _scrollController.jumpTo(0);
               controller.selectSortType(selectedItem.sortType);
             },
             icon: Icon(Icons.more_horiz),
             itemBuilder: (context) {
-              return _sortMenuItems.map((sortMenuItem) {
-                return PopupMenuItem<_SortMenuItem>(
+              return SortMenuItem.allItems.map((sortMenuItem) {
+                return PopupMenuItem<SortMenuItem>(
                   value: sortMenuItem,
                   child: Text(sortMenuItem.title),
                 );
