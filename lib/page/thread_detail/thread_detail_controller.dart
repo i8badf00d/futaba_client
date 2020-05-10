@@ -1,39 +1,35 @@
-import 'package:flutter/material.dart';
-import 'package:futaba_client/entity/comment.dart';
 import 'package:futaba_client/entity/thread.dart';
 import 'package:futaba_client/entity/thread_detail.dart';
+import 'package:futaba_client/page/thread_detail/thread_detail_row.dart';
+import 'package:futaba_client/page/thread_detail/thread_detail_state.dart';
 import 'package:futaba_client/repository/thread_detail_repository.dart';
+import 'package:state_notifier/state_notifier.dart';
 
-enum ThreadDetailRowType { ownerComment, reply, expiresInfo }
+class ThreadDetailController extends StateNotifier<ThreadDetailState>
+    with LocatorMixin {
+  ThreadDetailController(this.thread)
+      : super(ThreadDetailState(
+          title: thread.body,
+          rows: [],
+        ));
 
-class ThreadDetailRow {
-  ThreadDetailRow(
-    this.type, {
-    this.comment,
-  });
-  final ThreadDetailRowType type;
-  final Comment comment; // for ownerComment and reply
-}
-
-class ThreadDetailPageModel with ChangeNotifier {
-  ThreadDetailPageModel(this.thread) {
-    update();
-  }
   final Thread thread;
-  List<ThreadDetailRow> rows = [];
-  DateTime expiresDateTime;
 
-  String get title => thread.body;
-  ScrollController scrollController = ScrollController();
+  @override
+  void initState() {
+    fetch();
+  }
 
-  Future<void> update() async {
+  Future<void> fetch() async {
     final detail = await ThreadDetailRepository().fetchThreadDetail(thread);
     if (detail == null) {
       return;
     }
-    rows = _convert(detail);
-    expiresDateTime = detail.expiresDateTime;
-    notifyListeners();
+    state = state.copyWith(
+      title: detail.ownerComment.text.split('\n').first,
+      rows: _convert(detail),
+      expiresDateTime: detail.expiresDateTime,
+    );
   }
 
   List<ThreadDetailRow> _convert(ThreadDetail detail) {
