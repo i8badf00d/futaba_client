@@ -14,6 +14,7 @@ class CatalogController extends StateNotifier<CatalogState> with LocatorMixin {
 
   final Board board;
 
+  ThreadRepository get threadRepository => read<ThreadRepository>();
   CatalogSortTypeStore get sortTypeStore => read<CatalogSortTypeStore>();
   CatalogColumnCountStore get columnCountStore =>
       read<CatalogColumnCountStore>();
@@ -42,7 +43,7 @@ class CatalogController extends StateNotifier<CatalogState> with LocatorMixin {
 
   Future<void> fetchThreads() async {
     print('[CatalogController] fetchThreads');
-    final threads = await ThreadRepository().fetchThreads(
+    final threads = await threadRepository.fetchThreads(
       board,
       sortType: state.sortType,
     );

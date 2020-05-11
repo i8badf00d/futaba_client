@@ -1,8 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:futaba_client/api/api.dart';
+import 'package:futaba_client/io/http.dart';
 import 'package:futaba_client/page/home/home_page.dart';
+import 'package:futaba_client/repository/repository.dart';
 import 'package:futaba_client/store/store.dart';
+import 'package:http/io_client.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -15,11 +19,22 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        ...repositoryProviders(),
         ...storeProviders(),
       ],
       child: MyApp(),
     ),
   );
+}
+
+List<SingleChildWidget> repositoryProviders() {
+  final httpClient = IOClient(getHttpClient());
+  final apiClient = ApiClient(httpClient);
+  return [
+    Provider(create: (_) => BoardRepository()),
+    Provider(create: (_) => ThreadRepository(apiClient)),
+    Provider(create: (_) => ThreadDetailRepository(apiClient)),
+  ];
 }
 
 List<SingleChildWidget> storeProviders() {

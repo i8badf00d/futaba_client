@@ -9,8 +9,8 @@ import 'package:futaba_client/entity/entity.dart' as entity;
 import 'package:futaba_client/type/catalog_sort_type.dart';
 import 'package:http/http.dart' as http;
 
-class Client {
-  Client(this.httpClient);
+class ApiClient {
+  ApiClient(this.httpClient);
   final http.Client httpClient;
 
   /// カタログからスレッド一覧を取得します。

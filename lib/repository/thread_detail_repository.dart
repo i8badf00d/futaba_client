@@ -1,12 +1,12 @@
 import 'package:futaba_client/api/api.dart' as api;
 import 'package:futaba_client/entity/entity.dart' as entity;
-import 'package:futaba_client/io/http.dart';
-import 'package:http/io_client.dart';
 
 class ThreadDetailRepository {
+  ThreadDetailRepository(this.apiClient);
+
+  final api.ApiClient apiClient;
+
   Future<entity.ThreadDetail> fetchThreadDetail(entity.Thread thread) async {
-    final httpClient = IOClient(getHttpClient());
-    final apiClient = api.Client(httpClient);
     final ownerComment = await apiClient.fetchThreadOwnerComment(thread);
     final detailAndReplies =
         await apiClient.fetchThreadDetailAndReplies(thread);

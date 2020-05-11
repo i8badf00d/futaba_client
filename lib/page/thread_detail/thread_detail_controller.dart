@@ -15,13 +15,16 @@ class ThreadDetailController extends StateNotifier<ThreadDetailState>
 
   final Thread thread;
 
+  ThreadDetailRepository get threadDetailRepository =>
+      read<ThreadDetailRepository>();
+
   @override
   void initState() {
     fetch();
   }
 
   Future<void> fetch() async {
-    final detail = await ThreadDetailRepository().fetchThreadDetail(thread);
+    final detail = await threadDetailRepository.fetchThreadDetail(thread);
     if (detail == null) {
       return;
     }
