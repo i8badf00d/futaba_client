@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:futaba_client/page/home/home_page.dart';
 import 'package:futaba_client/store/store.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 
 void main() {
   LicenseRegistry.addLicense(() async* {
@@ -14,12 +15,18 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        Provider(create: (_) => CatalogColumnCountStore()),
-        Provider(create: (_) => CatalogSortTypeStore()),
+        ...storeProviders(),
       ],
       child: MyApp(),
     ),
   );
+}
+
+List<SingleChildWidget> storeProviders() {
+  return [
+    Provider(create: (_) => CatalogColumnCountStore()),
+    Provider(create: (_) => CatalogSortTypeStore()),
+  ];
 }
 
 class MyApp extends StatelessWidget {
