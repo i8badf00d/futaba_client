@@ -41,29 +41,31 @@ class CatalogPage extends StatelessWidget {
   Widget _buildBody(BuildContext context) {
     final controller = Provider.of<CatalogController>(context, listen: false);
     final state = Provider.of<CatalogState>(context, listen: true);
-    return RefreshIndicator(
-      child: state.threads.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: state.columnCount,
-                crossAxisSpacing: 4,
-                mainAxisSpacing: 4,
+    return state.threads.isEmpty
+        ? const Center(child: CircularProgressIndicator())
+        : RefreshIndicator(
+            child: Scrollbar(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: state.columnCount,
+                  crossAxisSpacing: 4,
+                  mainAxisSpacing: 4,
+                ),
+                itemCount: state.threads.length,
+                itemBuilder: (context, index) {
+                  return ThreadGridCell(
+                    thread: state.threads[index],
+                    onTap: () => _presentThreadDetailPage(
+                      context,
+                      state.threads[index],
+                    ),
+                  );
+                },
+                controller: _scrollController,
               ),
-              itemCount: state.threads.length,
-              itemBuilder: (context, index) {
-                return ThreadGridCell(
-                  thread: state.threads[index],
-                  onTap: () => _presentThreadDetailPage(
-                    context,
-                    state.threads[index],
-                  ),
-                );
-              },
-              controller: _scrollController,
             ),
-      onRefresh: controller.fetchThreads,
-    );
+            onRefresh: controller.fetchThreads,
+          );
   }
 
   void _presentThreadDetailPage(BuildContext context, Thread thread) {
