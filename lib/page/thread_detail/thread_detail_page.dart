@@ -25,40 +25,51 @@ class ThreadDetailPage extends StatelessWidget {
     final state = Provider.of<ThreadDetailState>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(state.title ?? ''),
+        title: Text(state.title),
       ),
-      body: _buildBody(context),
+      body: Builder(builder: _buildBody),
     );
   }
 
   Widget _buildBody(BuildContext context) {
-    final controller = Provider.of<ThreadDetailController>(context);
     final state = Provider.of<ThreadDetailState>(context);
+    if (state.rows.isEmpty) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (state.errorMessage != null) {
+      WidgetsBinding.instance.addPostFrameCallback(
+          (_) => _displaySnackBar(context, message: state.errorMessage));
+    }
+    final controller = Provider.of<ThreadDetailController>(context);
     return RefreshIndicator(
-      child: state.rows.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : Container(
-              child: ListView.separated(
-                itemCount: state.rows.length,
-                itemBuilder: (context, index) {
-                  final row = state.rows[index];
-                  switch (row.type) {
-                    case ThreadDetailRowType.ownerComment:
-                      return ThreadDetailCommentCell(comment: row.comment);
-                    case ThreadDetailRowType.reply:
-                      return ThreadDetailCommentCell(comment: row.comment);
-                    case ThreadDetailRowType.expiresInfo:
-                      return ThreadDetailExpiresInfoCell(
-                        expiresDateTime: state.expiresDateTime,
-                      );
-                  }
-                  return const Placeholder();
-                },
-                separatorBuilder: (context, index) => const Divider(),
-                controller: _scrollController,
-              ),
-            ),
+      child: Container(
+        child: ListView.separated(
+          itemCount: state.rows.length,
+          itemBuilder: (context, index) {
+            final row = state.rows[index];
+            switch (row.type) {
+              case ThreadDetailRowType.ownerComment:
+                return ThreadDetailCommentCell(comment: row.comment);
+              case ThreadDetailRowType.reply:
+                return ThreadDetailCommentCell(comment: row.comment);
+              case ThreadDetailRowType.expiresInfo:
+                return ThreadDetailExpiresInfoCell(
+                  expiresDateTime: state.expiresDateTime,
+                );
+            }
+            return const Placeholder();
+          },
+          separatorBuilder: (context, index) => const Divider(),
+          controller: _scrollController,
+        ),
+      ),
       onRefresh: controller.fetch,
     );
+  }
+
+  void _displaySnackBar(BuildContext context, {@required String message}) {
+    final snackBar = SnackBar(content: Text(message));
+    Scaffold.of(context).hideCurrentSnackBar();
+    Scaffold.of(context).showSnackBar(snackBar);
   }
 }

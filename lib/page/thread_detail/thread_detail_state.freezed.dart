@@ -13,11 +13,15 @@ class _$ThreadDetailStateTearOff {
   const _$ThreadDetailStateTearOff();
 
   _ThreadDetailState call(
-      {String title, List<ThreadDetailRow> rows, DateTime expiresDateTime}) {
+      {String title,
+      List<ThreadDetailRow> rows,
+      DateTime expiresDateTime,
+      String errorMessage}) {
     return _ThreadDetailState(
       title: title,
       rows: rows,
       expiresDateTime: expiresDateTime,
+      errorMessage: errorMessage,
     );
   }
 }
@@ -29,6 +33,7 @@ mixin _$ThreadDetailState {
   String get title;
   List<ThreadDetailRow> get rows;
   DateTime get expiresDateTime;
+  String get errorMessage;
 
   $ThreadDetailStateCopyWith<ThreadDetailState> get copyWith;
 }
@@ -38,7 +43,10 @@ abstract class $ThreadDetailStateCopyWith<$Res> {
           ThreadDetailState value, $Res Function(ThreadDetailState) then) =
       _$ThreadDetailStateCopyWithImpl<$Res>;
   $Res call(
-      {String title, List<ThreadDetailRow> rows, DateTime expiresDateTime});
+      {String title,
+      List<ThreadDetailRow> rows,
+      DateTime expiresDateTime,
+      String errorMessage});
 }
 
 class _$ThreadDetailStateCopyWithImpl<$Res>
@@ -54,6 +62,7 @@ class _$ThreadDetailStateCopyWithImpl<$Res>
     Object title = freezed,
     Object rows = freezed,
     Object expiresDateTime = freezed,
+    Object errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed ? _value.title : title as String,
@@ -61,6 +70,9 @@ class _$ThreadDetailStateCopyWithImpl<$Res>
       expiresDateTime: expiresDateTime == freezed
           ? _value.expiresDateTime
           : expiresDateTime as DateTime,
+      errorMessage: errorMessage == freezed
+          ? _value.errorMessage
+          : errorMessage as String,
     ));
   }
 }
@@ -72,7 +84,10 @@ abstract class _$ThreadDetailStateCopyWith<$Res>
       __$ThreadDetailStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String title, List<ThreadDetailRow> rows, DateTime expiresDateTime});
+      {String title,
+      List<ThreadDetailRow> rows,
+      DateTime expiresDateTime,
+      String errorMessage});
 }
 
 class __$ThreadDetailStateCopyWithImpl<$Res>
@@ -90,6 +105,7 @@ class __$ThreadDetailStateCopyWithImpl<$Res>
     Object title = freezed,
     Object rows = freezed,
     Object expiresDateTime = freezed,
+    Object errorMessage = freezed,
   }) {
     return _then(_ThreadDetailState(
       title: title == freezed ? _value.title : title as String,
@@ -97,12 +113,16 @@ class __$ThreadDetailStateCopyWithImpl<$Res>
       expiresDateTime: expiresDateTime == freezed
           ? _value.expiresDateTime
           : expiresDateTime as DateTime,
+      errorMessage: errorMessage == freezed
+          ? _value.errorMessage
+          : errorMessage as String,
     ));
   }
 }
 
 class _$_ThreadDetailState implements _ThreadDetailState {
-  _$_ThreadDetailState({this.title, this.rows, this.expiresDateTime});
+  _$_ThreadDetailState(
+      {this.title, this.rows, this.expiresDateTime, this.errorMessage});
 
   @override
   final String title;
@@ -110,10 +130,12 @@ class _$_ThreadDetailState implements _ThreadDetailState {
   final List<ThreadDetailRow> rows;
   @override
   final DateTime expiresDateTime;
+  @override
+  final String errorMessage;
 
   @override
   String toString() {
-    return 'ThreadDetailState(title: $title, rows: $rows, expiresDateTime: $expiresDateTime)';
+    return 'ThreadDetailState(title: $title, rows: $rows, expiresDateTime: $expiresDateTime, errorMessage: $errorMessage)';
   }
 
   @override
@@ -126,7 +148,10 @@ class _$_ThreadDetailState implements _ThreadDetailState {
                 const DeepCollectionEquality().equals(other.rows, rows)) &&
             (identical(other.expiresDateTime, expiresDateTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.expiresDateTime, expiresDateTime)));
+                    .equals(other.expiresDateTime, expiresDateTime)) &&
+            (identical(other.errorMessage, errorMessage) ||
+                const DeepCollectionEquality()
+                    .equals(other.errorMessage, errorMessage)));
   }
 
   @override
@@ -134,7 +159,8 @@ class _$_ThreadDetailState implements _ThreadDetailState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(rows) ^
-      const DeepCollectionEquality().hash(expiresDateTime);
+      const DeepCollectionEquality().hash(expiresDateTime) ^
+      const DeepCollectionEquality().hash(errorMessage);
 
   @override
   _$ThreadDetailStateCopyWith<_ThreadDetailState> get copyWith =>
@@ -145,7 +171,8 @@ abstract class _ThreadDetailState implements ThreadDetailState {
   factory _ThreadDetailState(
       {String title,
       List<ThreadDetailRow> rows,
-      DateTime expiresDateTime}) = _$_ThreadDetailState;
+      DateTime expiresDateTime,
+      String errorMessage}) = _$_ThreadDetailState;
 
   @override
   String get title;
@@ -153,6 +180,8 @@ abstract class _ThreadDetailState implements ThreadDetailState {
   List<ThreadDetailRow> get rows;
   @override
   DateTime get expiresDateTime;
+  @override
+  String get errorMessage;
   @override
   _$ThreadDetailStateCopyWith<_ThreadDetailState> get copyWith;
 }

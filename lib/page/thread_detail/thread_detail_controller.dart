@@ -8,10 +8,7 @@ import 'package:state_notifier/state_notifier.dart';
 class ThreadDetailController extends StateNotifier<ThreadDetailState>
     with LocatorMixin {
   ThreadDetailController(this.thread)
-      : super(ThreadDetailState(
-          title: thread.body,
-          rows: [],
-        ));
+      : super(ThreadDetailState(title: '', rows: []));
 
   final Thread thread;
 
@@ -29,22 +26,27 @@ class ThreadDetailController extends StateNotifier<ThreadDetailState>
       return;
     }
     state = state.copyWith(
-      title: detail.ownerComment.text.split('\n').first,
+      title: detail.ownerComment != null
+          ? detail.ownerComment.text.split('\n').first
+          : thread.body,
       rows: _convert(detail),
-      expiresDateTime: detail.expiresDateTime,
+      expiresDateTime: detail.isExpired ? null : detail.expiresDateTime,
+      errorMessage: detail.isExpired ? 'スレは落ちました' : null,
     );
   }
 
   List<ThreadDetailRow> _convert(ThreadDetail detail) {
-    return []
-      ..add(ThreadDetailRow(
-        ThreadDetailRowType.ownerComment,
-        comment: detail.ownerComment,
-      ))
-      ..addAll(detail.replies.map((comment) => ThreadDetailRow(
+    return [
+      if (detail.ownerComment != null)
+        ThreadDetailRow(
+          ThreadDetailRowType.ownerComment,
+          comment: detail.ownerComment,
+        ),
+      ...detail.replies.map((comment) => ThreadDetailRow(
             ThreadDetailRowType.reply,
             comment: comment,
-          )))
-      ..add(ThreadDetailRow(ThreadDetailRowType.expiresInfo));
+          )),
+      ThreadDetailRow(ThreadDetailRowType.expiresInfo),
+    ];
   }
 }

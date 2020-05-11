@@ -9,5 +9,6 @@ abstract class ThreadDetailState with _$ThreadDetailState {
     String title,
     List<ThreadDetailRow> rows,
     DateTime expiresDateTime,
+    String errorMessage,
   }) = _ThreadDetailState;
 }

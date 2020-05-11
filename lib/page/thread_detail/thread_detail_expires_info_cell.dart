@@ -12,7 +12,9 @@ class ThreadDetailExpiresInfoCell extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-        Text(_message()),
+        expiresDateTime != null
+            ? Text(_message())
+            : const Text('スレは落ちました', style: TextStyle(color: Colors.red)),
       ],
     );
   }
