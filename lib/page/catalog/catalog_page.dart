@@ -27,6 +27,12 @@ class CatalogPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(controller.board.name),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: controller.fetchThreads,
+          )
+        ],
       ),
       body: GestureDetector(
         onScaleStart: controller.onScaleStart,
