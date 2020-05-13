@@ -30,7 +30,10 @@ class CatalogPage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.refresh),
-            onPressed: controller.fetchThreads,
+            onPressed: () {
+              controller.fetchThreads();
+              _scrollToTop();
+            },
           )
         ],
       ),
@@ -99,8 +102,8 @@ class CatalogPage extends StatelessWidget {
           ),
           PopupMenuButton(
             onSelected: (SortMenuItem selectedItem) {
-              _scrollController.jumpTo(0);
               controller.selectSortType(selectedItem.sortType);
+              _scrollToTop();
             },
             icon: Icon(Icons.more_horiz),
             itemBuilder: (context) {
@@ -115,5 +118,15 @@ class CatalogPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _scrollToTop() async {
+    if (_scrollController.hasClients) {
+      await _scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 1),
+        curve: Curves.linear,
+      );
+    }
   }
 }
