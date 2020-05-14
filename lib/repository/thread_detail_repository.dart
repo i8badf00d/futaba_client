@@ -36,7 +36,8 @@ class ThreadDetailRepository {
                 baseUrl,
               ))
           .toList(),
-      isExpired: detailAndReplies.isExpired,
+      isOld: detailAndReplies.isOld,
+      isDead: ownerComment == null,
       expiresDateTime: detailAndReplies.expiresDateTimeUtc.toLocal(),
     );
   }

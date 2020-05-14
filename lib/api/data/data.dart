@@ -44,24 +44,32 @@ class File {
 
 class ThreadDetail {
   ThreadDetail({
-    this.isExpired,
+    this.shouldDisplayName,
+    this.shouldDisplayLikeCount,
+    this.isOld,
     this.expiresDateTimeUtc,
     @required this.likeCountInfo,
   });
 
-  final bool isExpired;
+  final bool shouldDisplayName;
+  final bool shouldDisplayLikeCount;
+  final bool isOld;
   final DateTime expiresDateTimeUtc;
   final Map<String, int> likeCountInfo;
 }
 
 class ThreadDetailAndReplies extends ThreadDetail {
   ThreadDetailAndReplies({
-    bool isExpired,
+    bool shouldDisplayName,
+    bool shouldDisplayLikeCount,
+    bool isOld,
     DateTime expiresDateTimeUtc,
     Map<String, int> likeCountInfo,
     @required this.replies,
   }) : super(
-          isExpired: isExpired,
+          shouldDisplayName: shouldDisplayName,
+          shouldDisplayLikeCount: shouldDisplayLikeCount,
+          isOld: isOld,
           expiresDateTimeUtc: expiresDateTimeUtc,
           likeCountInfo: likeCountInfo,
         );

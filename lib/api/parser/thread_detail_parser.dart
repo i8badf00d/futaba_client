@@ -10,7 +10,9 @@ ThreadDetail parseThreadDetail(String responseBody) {
   final json = _jsonDecode(responseBody);
 
   return ThreadDetail(
-    isExpired: _parseIsExpired(json),
+    shouldDisplayName: _parseShouldDisplayName(json),
+    shouldDisplayLikeCount: _parseShouldDisplayLikeCount(json),
+    isOld: _parseIsOld(json),
     expiresDateTimeUtc: _parseExpiresDateTimeUtc(json),
     likeCountInfo: _parseLikeCountInfo(json),
   );
@@ -20,7 +22,9 @@ ThreadDetailAndReplies parseThreadDetailAndReplies(String responseBody) {
   final json = _jsonDecode(responseBody);
 
   return ThreadDetailAndReplies(
-    isExpired: _parseIsExpired(json),
+    shouldDisplayName: _parseShouldDisplayName(json),
+    shouldDisplayLikeCount: _parseShouldDisplayLikeCount(json),
+    isOld: _parseIsOld(json),
     expiresDateTimeUtc: _parseExpiresDateTimeUtc(json),
     likeCountInfo: _parseLikeCountInfo(json),
     replies: _parseComments(json),
@@ -53,9 +57,19 @@ Map<String, dynamic> _jsonDecode(String responseBody) {
   );
 }
 
+/// `.dispname` をパースします。
+bool _parseShouldDisplayName(Map<String, dynamic> json) {
+  return intValue(json['dispname']) == 1;
+}
+
+/// `.dispsod` をパースします。
+bool _parseShouldDisplayLikeCount(Map<String, dynamic> json) {
+  return intValue(json['dispsod']) == 1;
+}
+
 /// `.old` をパースします。
-bool _parseIsExpired(Map<String, dynamic> json) {
-  return safeCast<int>(json['old'], onFailure: 0) != 0;
+bool _parseIsOld(Map<String, dynamic> json) {
+  return intValue(json['old']) == 1;
 }
 
 /// `.dielong` をパースします。

@@ -6,7 +6,8 @@ class ThreadDetail {
     this.url,
     this.ownerComment,
     this.replies,
-    this.isExpired,
+    this.isOld,
+    this.isDead,
     this.expiresDateTime,
   });
 
@@ -14,6 +15,7 @@ class ThreadDetail {
   final Uri url;
   final Comment ownerComment;
   final List<Comment> replies;
-  final bool isExpired;
+  final bool isOld;
+  final bool isDead;
   final DateTime expiresDateTime;
 }

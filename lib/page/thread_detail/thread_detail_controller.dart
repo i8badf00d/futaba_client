@@ -30,8 +30,9 @@ class ThreadDetailController extends StateNotifier<ThreadDetailState>
           ? detail.ownerComment.text.split('\n').first
           : thread.body,
       rows: _convert(detail),
-      expiresDateTime: detail.isExpired ? null : detail.expiresDateTime,
-      errorMessage: detail.isExpired ? 'スレは落ちました' : null,
+      expiresDateTime:
+          detail.isDead || detail.isOld ? null : detail.expiresDateTime,
+      errorMessage: detail.isDead ? 'スレは落ちました' : null,
     );
   }
 
