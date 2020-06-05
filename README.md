@@ -5,7 +5,7 @@
 ## Development
 
 - Flutter
-  - 1.17.0 (channel stable)
+  - 1.17.3 (channel stable)
 
 ## Distribution
 
