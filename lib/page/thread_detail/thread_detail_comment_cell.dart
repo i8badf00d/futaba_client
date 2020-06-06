@@ -105,6 +105,17 @@ class ImageDetailPage extends StatelessWidget {
           fit: BoxFit.contain,
           enableSlideOutPage: true,
           mode: ExtendedImageMode.gesture,
+          loadStateChanged: (state) {
+            switch (state.extendedImageLoadState) {
+              case LoadState.loading:
+                break;
+              case LoadState.failed:
+                return Icon(Icons.broken_image);
+              case LoadState.completed:
+                break;
+            }
+            return null;
+          },
           heroBuilderForSlidingPage: (image) => Hero(
             tag: file.url.toString(),
             child: image,
