@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   euc: 1.0.2+4
+  extended_image: 0.9.0
   flutter_state_notifier: 0.4.2
   freezed_annotation: 0.7.1
   html: 0.14.0+3

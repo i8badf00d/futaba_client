@@ -1,3 +1,4 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:futaba_client/entity/entity.dart';
 import 'package:intl/intl.dart';
@@ -53,10 +54,22 @@ class ThreadDetailCommentCell extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text('$filename'),
-        Image.network(
-          file.thumbnailUrl.toString(),
-          width: file.width.toDouble(),
-          height: file.height.toDouble(),
+        Hero(
+          tag: file.url.toString(),
+          child: GestureDetector(
+            child: ExtendedImage.network(
+              file.thumbnailUrl.toString(),
+              width: file.width.toDouble(),
+              height: file.height.toDouble(),
+            ),
+            onTap: () => Navigator.of(context).push<void>(
+              TransparentMaterialPageRoute(
+                builder: (context) => ImageDetailPage(
+                  file: file,
+                ),
+              ),
+            ),
+          ),
         ),
         const SizedBox(height: 8),
       ],
@@ -71,5 +84,45 @@ class ThreadDetailCommentCell extends StatelessWidget {
 extension UriExtension on Uri {
   String get lastPathComponent {
     return toString().split('/').last;
+  }
+}
+
+class ImageDetailPage extends StatelessWidget {
+  const ImageDetailPage({
+    Key key,
+    @required this.file,
+  }) : super(key: key);
+
+  final File file;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExtendedImageSlidePage(
+      child: GestureDetector(
+        onTap: () => Navigator.of(context).pop(),
+        child: ExtendedImage.network(
+          file.url.toString(),
+          fit: BoxFit.contain,
+          enableSlideOutPage: true,
+          mode: ExtendedImageMode.gesture,
+          heroBuilderForSlidingPage: (image) => Hero(
+            tag: file.url.toString(),
+            child: image,
+            flightShuttleBuilder: (
+              flightContext,
+              animation,
+              flightDirection,
+              fromHeroContext,
+              toHeroContext,
+            ) {
+              final hero = (flightDirection == HeroFlightDirection.pop
+                  ? fromHeroContext.widget
+                  : toHeroContext.widget) as Hero;
+              return hero.child;
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
