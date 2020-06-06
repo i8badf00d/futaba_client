@@ -11,13 +11,16 @@ class ThreadDetailCommentCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        _buildTitle(context),
-        if (comment.file != null) _buildThumbnail(context, comment.file),
-        _buildText(context),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _buildTitle(context),
+          if (comment.file != null) _buildThumbnail(context, comment.file),
+          _buildText(context),
+        ],
+      ),
     );
   }
 

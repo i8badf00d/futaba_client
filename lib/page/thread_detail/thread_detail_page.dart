@@ -59,7 +59,8 @@ class ThreadDetailPage extends StatelessWidget {
             }
             return const Placeholder();
           },
-          separatorBuilder: (context, index) => const Divider(),
+          separatorBuilder: (context, index) =>
+              const Divider(height: 1, thickness: 1),
           controller: _scrollController,
         ),
       ),
