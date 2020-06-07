@@ -67,6 +67,7 @@ class ThreadDetailCommentCell extends StatelessWidget {
                 builder: (context) => ImageDetailPage(
                   file: file,
                 ),
+                fullscreenDialog: true,
               ),
             ),
           ),
