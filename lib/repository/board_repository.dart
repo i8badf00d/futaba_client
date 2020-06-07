@@ -13,7 +13,7 @@ class BoardRepository {
       ),
       Board(
         name: '二次元裏jun',
-        baseUrl: Uri.https('jun.2chan.net', '/b/'),
+        baseUrl: Uri.https('jun.2chan.net', '/jun/'),
       ),
     ];
   }
