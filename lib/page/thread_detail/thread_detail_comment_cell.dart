@@ -99,6 +99,12 @@ class ImageDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExtendedImageSlidePage(
+      slidePageBackgroundHandler: (offset, size) =>
+          defaultSlidePageBackgroundHandler(
+              offset: offset,
+              pageSize: size,
+              color: Colors.black,
+              pageGestureAxis: SlideAxis.both),
       child: GestureDetector(
         onTap: () => Navigator.of(context).pop(),
         child: ExtendedImage.network(
