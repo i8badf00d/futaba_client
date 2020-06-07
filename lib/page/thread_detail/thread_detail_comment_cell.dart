@@ -1,6 +1,7 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:futaba_client/entity/entity.dart';
+import 'package:futaba_client/utils/extensions.dart';
 import 'package:intl/intl.dart';
 
 class ThreadDetailCommentCell extends StatelessWidget {
@@ -79,12 +80,6 @@ class ThreadDetailCommentCell extends StatelessWidget {
 
   Widget _buildText(BuildContext context) {
     return Text(comment.text);
-  }
-}
-
-extension UriExtension on Uri {
-  String get lastPathComponent {
-    return toString().split('/').last;
   }
 }
 
