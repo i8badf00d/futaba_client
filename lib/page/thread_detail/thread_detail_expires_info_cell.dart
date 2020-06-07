@@ -9,19 +9,22 @@ class ThreadDetailExpiresInfoCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return expiresDateTime != null
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Text(_message()),
-            ],
-          )
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('スレは落ちました', style: TextStyle(color: Colors.red)),
-            ],
-          );
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: expiresDateTime != null
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Text(_message()),
+              ],
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('スレは落ちました', style: TextStyle(color: Colors.red)),
+              ],
+            ),
+    );
   }
 
   String _message() {
