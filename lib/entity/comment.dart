@@ -3,6 +3,7 @@ import 'file.dart';
 class Comment {
   Comment({
     this.id,
+    this.number,
     this.username,
     this.userId,
     this.host,
@@ -15,6 +16,7 @@ class Comment {
   });
 
   final String id;
+  final int number;
   final String username;
   final String userId;
   final String host;

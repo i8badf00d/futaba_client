@@ -29,29 +29,55 @@ class ThreadDetailCommentCell extends StatelessWidget {
   Widget _buildTitle(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(
+        Wrap(
+          direction: Axis.horizontal,
+          alignment: WrapAlignment.start,
+          spacing: 4,
           children: <Widget>[
-            Text(
-              'No.${comment.id}',
-              style: TextStyle(
-                color: Theme.of(context).disabledColor,
+            if (comment.number > 0) Text('${comment.number}'),
+            if (comment.subject.isNotEmpty)
+              Text(
+                '${comment.subject}',
+                style: const TextStyle(color: Color.fromARGB(255, 204, 17, 5)),
               ),
-            ),
-            const SizedBox(width: 4),
+            if (comment.username.isNotEmpty)
+              Text(
+                '${comment.username}',
+                style: const TextStyle(color: Color.fromARGB(255, 17, 119, 67)),
+              ),
+            if (comment.email.isNotEmpty)
+              Text(
+                '[${comment.email}]',
+                style: const TextStyle(color: Color.fromARGB(255, 0, 0, 238)),
+              ),
+            if (comment.userId.isNotEmpty)
+              Text(
+                '${comment.userId}',
+                style: const TextStyle(color: Color.fromARGB(255, 204, 17, 5)),
+              ),
+            if (comment.host.isNotEmpty)
+              Text(
+                '[${comment.host}]',
+                style: const TextStyle(color: Color.fromARGB(255, 255, 0, 0)),
+              ),
             Text(
               DateFormat('yyyy/MM/dd HH:mm:ss').format(comment.postedAt),
               style: TextStyle(
                 color: Theme.of(context).disabledColor,
               ),
             ),
+            Text(
+              'No.${comment.id}',
+              style: TextStyle(
+                color: Theme.of(context).disabledColor,
+              ),
+            ),
             // そうだね
-            if (comment.likeCount > 0) ...[
-              const SizedBox(width: 4),
+            if (comment.likeCount > 0)
               Text(
                 'そうだねx${comment.likeCount}',
                 style: const TextStyle(color: Colors.orangeAccent),
               ),
-            ]
           ],
         ),
         const SizedBox(height: 8),
@@ -64,7 +90,10 @@ class ThreadDetailCommentCell extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('$filename'),
+        Text(
+          '$filename',
+          style: const TextStyle(color: Color.fromARGB(255, 0, 0, 238)),
+        ),
         Hero(
           tag: file.tag,
           child: GestureDetector(

@@ -109,6 +109,7 @@ Comment _parseComment(MapEntry<String, dynamic> entry) {
 
   return Comment(
     id: entry.key,
+    number: entry.value['rsc'] as int,
     username: entry.value['name'] as String,
     userId: entry.value['id'] as String,
     host: entry.value['host'] as String,

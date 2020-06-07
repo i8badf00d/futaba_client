@@ -28,12 +28,15 @@ class ThreadDetailRepository {
         ownerComment,
         likeCountInfo,
         baseUrl,
+        shouldDisplayName: detailAndReplies.shouldDisplayName,
+        number: 0,
       ),
       replies: detailAndReplies.replies
           .map((reply) => _convertToCommentEntity(
                 reply,
                 likeCountInfo,
                 baseUrl,
+                shouldDisplayName: detailAndReplies.shouldDisplayName,
               ))
           .toList(),
       isOld: detailAndReplies.isOld,
@@ -45,18 +48,21 @@ class ThreadDetailRepository {
   entity.Comment _convertToCommentEntity(
     api.Comment comment,
     Map<String, int> likeCountInfo,
-    Uri baseUrl,
-  ) {
+    Uri baseUrl, {
+    bool shouldDisplayName,
+    int number,
+  }) {
     if (comment == null) {
       return null;
     }
     return entity.Comment(
       id: comment.id,
-      username: comment.username,
+      number: number ?? comment.number,
+      username: shouldDisplayName ? comment.username : '',
       userId: comment.userId,
       host: comment.host,
       email: comment.email,
-      subject: comment.subject,
+      subject: shouldDisplayName ? comment.subject : '',
       text: comment.text ?? '',
       file: _convertToFileEntity(comment.file, baseUrl),
       postedAt: comment.postedAt,
