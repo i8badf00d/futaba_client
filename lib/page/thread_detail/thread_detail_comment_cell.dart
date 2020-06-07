@@ -31,9 +31,19 @@ class ThreadDetailCommentCell extends StatelessWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Text(DateFormat('yyyy/MM/dd HH:mm:ss').format(comment.postedAt)),
+            Text(
+              'No.${comment.id}',
+              style: TextStyle(
+                color: Theme.of(context).disabledColor,
+              ),
+            ),
             const SizedBox(width: 4),
-            Text('No.${comment.id}'),
+            Text(
+              DateFormat('yyyy/MM/dd HH:mm:ss').format(comment.postedAt),
+              style: TextStyle(
+                color: Theme.of(context).disabledColor,
+              ),
+            ),
             // そうだね
             if (comment.likeCount > 0) ...[
               const SizedBox(width: 4),
