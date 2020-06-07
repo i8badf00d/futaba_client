@@ -55,7 +55,7 @@ class ThreadDetailCommentCell extends StatelessWidget {
       children: <Widget>[
         Text('$filename'),
         Hero(
-          tag: file.url.toString(),
+          tag: file.tag,
           child: GestureDetector(
             child: ExtendedImage.network(
               file.thumbnailUrl.toString(),
@@ -118,7 +118,7 @@ class ImageDetailPage extends StatelessWidget {
             return null;
           },
           heroBuilderForSlidingPage: (image) => Hero(
-            tag: file.url.toString(),
+            tag: file.tag,
             child: image,
             flightShuttleBuilder: (
               flightContext,

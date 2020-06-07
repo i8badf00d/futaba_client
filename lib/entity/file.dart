@@ -14,4 +14,6 @@ class File {
   final Uri thumbnailUrl;
   final int width;
   final int height;
+
+  String get tag => url.toString();
 }
