@@ -79,9 +79,9 @@ class CatalogPage extends StatelessWidget {
 
   void _presentThreadDetailPage(BuildContext context, Thread thread) {
     Navigator.of(context).push(
-      MaterialPageRoute<void>(builder: (context) {
-        return ThreadDetailPage.withDependencies(thread: thread);
-      }),
+      MaterialPageRoute<void>(
+          builder: (context) =>
+              ThreadDetailPage.withDependencies(thread: thread)),
     );
   }
 

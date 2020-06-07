@@ -39,18 +39,14 @@ class HomePage extends StatelessWidget {
   void _presentSettingsPage(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-          builder: (context) {
-            return SettingsPage();
-          },
-          fullscreenDialog: true),
+          builder: (context) => SettingsPage(), fullscreenDialog: true),
     );
   }
 
   void _presentCatalogPage(BuildContext context, Board board) {
     Navigator.of(context).push(
-      MaterialPageRoute<void>(builder: (context) {
-        return CatalogPage.withDependencies(board: board);
-      }),
+      MaterialPageRoute<void>(
+          builder: (context) => CatalogPage.withDependencies(board: board)),
     );
   }
 }
